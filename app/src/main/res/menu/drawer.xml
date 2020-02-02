@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+    android:id="@+id/action_search"
+    android:icon="@drawable/search_light"
+
+
+    android:title="search"
+    app:actionViewClass="androidx.appcompat.widget.SearchView"
+    app:showAsAction="always|collapseActionView" />
+    <item
+        android:id="@+id/bookmark_menu"
+        android:icon="@drawable/bookmark_icon"
+        android:title="bookmark"
+        app:showAsAction="always|collapseActionView" />
+
+    <item
+        android:id="@+id/animelist"
+        android:title="Anime List"/>
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"/>
+    <item
+            android:id="@+id/donate"
+            android:title="Donate"/>
+
+</menu>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayouta"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/downloadchoice"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/notbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/round_background"
+        android:fontFamily="@font/regular"
+
+        android:maxLines="1"
+        android:padding="5dp"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="0"
+        android:textAlignment="center"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/expandbutton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/ic_keyboard_arrow_down_black_24dp"
+        android:fontFamily="@font/regular"
+
+        android:maxLines="2"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nestedscrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/action">
+
+            <TextView
+                android:id="@+id/summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bookmarks"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp"
+                android:ellipsize="start"
+                android:text="Anime description"
+                android:textAlignment="center"/>
+
+            <LinearLayout
+                android:id="@+id/bookmarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_below="@+id/imageCardView"
+                android:layout_marginTop="8dp">
+
+
+                <TextView
+                    android:id="@+id/bookmark"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_background"
+                    android:fontFamily="@font/regular"
+                    android:text="Bookmark"
+                    android:layout_marginEnd="10dp"
+                    android:padding="5dp"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="0"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:id="@+id/notbutton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/epnumber"
+                    android:fontFamily="@font/regular"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="6dp"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="0"
+                    android:text="11/12"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/imageCardView"
+                android:layout_width="300dp"
+                android:layout_height="400dp"
+                android:layout_centerHorizontal="true"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <ImageView
+                    android:id="@+id/animeimage"
+                    style="@style/animeimage"
+                    android:layout_marginTop="0dp"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:top="@id/linear"
+            android:layout_below="@id/rel">
+
+            <TextView
+                android:id="@+id/text12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/regular"
+                android:gravity="center"
+                android:text="EPISODES"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear1"
+            android:layout_marginTop="8dp"
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/episodeno"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/search_background"
+                    android:fontFamily="@font/regular"
+                    android:inputType="number"
+                    android:paddingStart="16dp"
+                    android:textAlignment="viewStart" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/episodeselector"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_search_black_24dp"
+                android:clickable="true"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/textinput"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/textinput"
+                app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.AppCompatImageView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/xyza"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/linear"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginTop="20dp"
+            android:nestedScrollingEnabled="true">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/action"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/actiontool"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF3D54</color>
+    <color name="colorPrimaryDark">#FF3D54</color>
+    <color name="colorAccent">#FF6B7E</color>
+    <color name="bgBottomNavigation">#FF6B7E</color>
+
+    <color name="tab_disable">#979797</color>
+    <color name="tab_enable">#FFFFFF</color>
+
+    <color name="tab_checked">#FFFFFF</color>
+    <color name="tab_unchecked">#e3e3e3</color>
+
+    <color name="white">#fff</color>
+    <color name="offwhite">#e8e8e8</color>
+
+    <color name="backgroundtheme">#303030</color>
+    <color name="darkthemelight">#424242</color>
+    <color name="finishthemelight">#489E4D</color>
+</resources>

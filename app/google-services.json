@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "271935895948",
+    "firebase_url": "https://anistream-app.firebaseio.com",
+    "project_id": "anistream-app",
+    "storage_bucket": "anistream-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271935895948:android:a8e8de0f6d1b0856",
+        "android_client_info": {
+          "package_name": "com.anistream.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271935895948-3rksesvek4rnf92jja92u6loe7p9fms7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anistream.app",
+            "certificate_hash": "f068ed3c6f93e206b9602b8ed67099a1f2dd3ab9"
+          }
+        },
+        {
+          "client_id": "271935895948-352dgqau3rbamjd02b4l9u3utl1b8h7p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anistream.app",
+            "certificate_hash": "3c001af26c3b5e0b7fbfec6d04ed99522ec875b2"
+          }
+        },
+        {
+          "client_id": "271935895948-kjlk53bks33ftip263t869u1c10cm4nv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiWUoWAeBImBl9bUpKkvMJ65PxlUxtACY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271935895948-kjlk53bks33ftip263t869u1c10cm4nv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271935895948:android:cc875f984f32c7e1167ea9",
+        "android_client_info": {
+          "package_name": "com.anistream.xyz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271935895948-kjlk53bks33ftip263t869u1c10cm4nv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiWUoWAeBImBl9bUpKkvMJ65PxlUxtACY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271935895948-kjlk53bks33ftip263t869u1c10cm4nv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271935895948:android:b29b4e300c19eae1167ea9",
+        "android_client_info": {
+          "package_name": "com.anistreamxyz.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271935895948-kjlk53bks33ftip263t869u1c10cm4nv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiWUoWAeBImBl9bUpKkvMJ65PxlUxtACY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271935895948-kjlk53bks33ftip263t869u1c10cm4nv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
