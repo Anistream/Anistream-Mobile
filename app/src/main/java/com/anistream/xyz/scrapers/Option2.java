@@ -1,8 +1,8 @@
 package com.anistream.xyz.scrapers;
 
 
+import android.util.Log;
 import com.anistream.xyz.Quality;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -18,7 +18,7 @@ public class Option2 extends Scraper {
                     + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
                     + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\$~@!:/{};'])",
             Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-    private  static  final Pattern vidCdnM3u8Pattern = Pattern.compile("(sub|dub)\\.[0-9]*\\.[0-9]*\\.m3u8");
+    private  static  final Pattern vidCdnM3u8Pattern = Pattern.compile("((sub|dub)\\\\.[0-9]*\\\\.[0-9]*\\\\.m3u8)|(((sub)|(dub))\\.\\d*\\.\\d*\\.m3u8)");
     private  static  final Pattern vidCdnQualityPattern = Pattern.compile("[0-9]*p");
 
     public Option2(Document gogoAnimePageDocument) {
@@ -38,8 +38,9 @@ public class Option2 extends Scraper {
         ArrayList<Quality> qualities = new ArrayList<>();
         try {
             String vidStreamUrl = "https:" + gogoAnimePageDocument.getElementsByClass("play-video").get(0).getElementsByTag("iframe").get(0).attr("src");
-            String vidCdnUrl = vidStreamUrl.replace("streaming.php", "server.php");
+            String vidCdnUrl = vidStreamUrl.replace("streaming.php", "streaming.php");
             Document vidCdnPageDocument = Jsoup.connect(vidCdnUrl).get();
+            Log.i("vidcdn","vidcdn is "+vidCdnUrl);
             String htmlToParse = vidCdnPageDocument.outerHtml();
             // Log.i("m3u8html",htmlToParse);
             Matcher matcher = urlPattern.matcher(htmlToParse);
@@ -48,10 +49,8 @@ public class Option2 extends Scraper {
                 int matchStart = matcher.start();
                 int matchEnd = matcher.end();
                 String link = htmlToParse.substring(matchStart, matchEnd);
-                System.out.println(link);
                 if (link.contains("m3u8")) {
                     m3u8Link = link.substring(1,link.length()-1);
-                    System.out.println(m3u8Link);
                     break;
                 }
 
@@ -59,6 +58,7 @@ public class Option2 extends Scraper {
             if(!m3u8Link.equals(""))
             {
                 URL url = new URL(m3u8Link);
+                Log.i("m3u8Url",m3u8Link);
                 host =  url.getHost();
                 String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36";
                 HashMap<String, String> headers = new HashMap<>();
@@ -74,6 +74,7 @@ public class Option2 extends Scraper {
                 headers.put("Host", host);
                 String path = url.getFile().substring(0, url.getFile().lastIndexOf('/'));
                 String base = url.getProtocol() + "://" + url.getHost() + path;
+                Log.i("baseIs",base);
                 Document m3u8PageDocument = Jsoup.connect(m3u8Link).ignoreContentType(true).userAgent(userAgent).headers(headers).get();
                 System.out.println(m3u8PageDocument.outerHtml());
                 htmlToParse = m3u8PageDocument.outerHtml();
@@ -84,14 +85,19 @@ public class Option2 extends Scraper {
                 {
                     System.out.println(htmlToParse.substring(m3u8Matcher.start(),m3u8Matcher.end()));
                     String qualityUrl = base+"/" + htmlToParse.substring(m3u8Matcher.start(),m3u8Matcher.end());
+                    Log.i("ScrapeUrl",qualityUrl);
                     String quality = htmlToParse.substring(qualityMatcher.start(),qualityMatcher.end());
 
                     qualities.add(new Quality(quality,qualityUrl));
                 }
-                if(qualities.size()==0)
-                    qualities.add(new Quality("Unknown",m3u8Link));
+                if(qualities.size()==0) {
+                    qualities.add(new Quality("Unknown", m3u8Link));
+                    Log.i("ScrapeUrl",m3u8Link);
+                }
             }
         } catch (Exception e) {
+            Log.i("m3u8Url",e.getMessage());
+
             e.printStackTrace();
         }
         return qualities;
