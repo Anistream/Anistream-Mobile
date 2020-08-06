@@ -17,6 +17,7 @@ import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -335,8 +336,14 @@ public class WatchVideo extends AppCompatActivity {
                     // if (currentScraper == scrapers.size()) Use if currentScraper = 0
                     if (currentScraper < 0) { // Use if currentScraper = 1
                         useFallBack();
-                    } else
-                        changingScraper();
+                    } else {
+                        new Handler(context.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                changingScraper();
+                            }
+                        });
+                    }
                 }
 
                 host = scrapers.get(currentScraper).getHost();
