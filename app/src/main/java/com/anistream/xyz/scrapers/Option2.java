@@ -34,7 +34,6 @@ public class Option2 extends Scraper {
     @Override
     public ArrayList<Quality> getQualityUrls()
     {
-
         ArrayList<Quality> qualities = new ArrayList<>();
         try {
             String vidStreamUrl = "https:" + gogoAnimePageDocument.getElementsByClass("play-video").get(0).getElementsByTag("iframe").get(0).attr("src");

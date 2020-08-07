@@ -334,20 +334,22 @@ public class WatchVideo extends AppCompatActivity {
 
                     currentScraper--;
                     // if (currentScraper == scrapers.size()) Use if currentScraper = 0
-                    if (currentScraper < 0) { // Use if currentScraper = 1
-                        useFallBack();
-                    } else {
-                        new Handler(context.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
+                    new Handler(context.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (currentScraper < 0) { // Use if currentScraper = 1
+                                useFallBack();
+                            } else {
                                 changingScraper();
                             }
-                        });
-                    }
+                        }
+                    });
+                } else {
+                    host = scrapers.get(currentScraper).getHost();
+                    currentQuality = 0;
                 }
 
-                host = scrapers.get(currentScraper).getHost();
-                currentQuality = 0;
+
 
             } catch (Exception e1) {
                 e1.printStackTrace();
