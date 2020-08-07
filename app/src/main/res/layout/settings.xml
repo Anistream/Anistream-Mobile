@@ -39,7 +39,7 @@
         android:layout_height="17dp" />
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_height="2dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -51,7 +51,7 @@
                 android:layout_gravity="center_horizontal"
                 android:onClick="discord"
                 android:background="@android:color/transparent"
-                android:text="Join our discord"
+                android:text="Discord"
                 android:textColor="#FFFFFF" style="?android:attr/buttonStyle"/>
         <View style="@style/Divider"/>
         <Button
@@ -72,16 +72,6 @@
                 android:text="Restore Data"
                 android:textColor="#FFFFFF"/>
         <View style="@style/Divider"/>
-        <Button
-                android:id="@+id/buttonchangelog"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:onClick="changes"
-                android:background="@android:color/transparent"
-                android:text="Changelog"
-                android:textColor="#FFFFFF"/>
-        <View style="@style/Divider"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -89,21 +79,13 @@
             android:layout_weight="1"
             android:gravity="center|bottom"
             android:orientation="vertical" >
-    <TextView
-        android:id="@+id/poweredby"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/medium"
-        android:text="Powered by https://anistream.xyz"
-        android:textAlignment="center"
-        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/copyright"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:fontFamily="@font/medium"
-        android:text="© COBALT MEDIA 2020"
+        android:text="© Riku32"
         android:textAlignment="center"
         android:textSize="13sp" />
     </LinearLayout>

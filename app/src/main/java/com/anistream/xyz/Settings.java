@@ -98,17 +98,9 @@ public class Settings extends AppCompatActivity {
 
     }
 
-    public void discord (View view) { discordurl ( "https://discord.gg/z9HSVvD"); }
+    public void discord (View view) { discordurl ( "https://discord.gg/kami"); }
 
     private void discordurl (String url) {
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-        startActivity(launchBrowser);
-    }
-
-    public void changes (View view) { changeurl ( "https://cobaltmedia.xyz/changelog"); }
-
-    private void changeurl (String url) {
         Uri uriUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);

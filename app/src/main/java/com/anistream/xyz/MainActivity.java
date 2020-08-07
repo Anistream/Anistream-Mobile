@@ -226,8 +226,6 @@ public class MainActivity extends AppCompatActivity {
                                 .setNegativeButton(android.R.string.no, null)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
-                    }else {
-
                     }
                 }
 
@@ -421,14 +419,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     new AlertDialog.Builder(getBaseContext())
                             .setTitle("Unable to Export/Import")
-                            .setMessage("we cant export or import the database unless you give the permission")
+                            .setMessage("You do not have the valid permission for this database!")
 
                             // Specifying a listener allows you to take an action before dismissing the dialog.
                             // The dialog is automatically dismissed when a dialog button is clicked.
-                            .setPositiveButton("give permission", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Give permission", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 110);
-
                                 }
                             })
 
