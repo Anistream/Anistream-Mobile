@@ -101,7 +101,11 @@ public class AnimeFragment extends Fragment {
                     String mAnimenName = mElementAnimeName.text();
                     if (mAnimenName.contains("[email protect  ed]"))
                         mAnimenName = mAnimenName.replace("[email protected]", "IDOLM@STER");
-                    String mlink = searching.select("p[class=name]").select("a").eq(i).attr("abs:href");
+                    String mlink = searching.select("p[class=name]").select("a").eq(i).attr("href");
+                    if(!mlink.startsWith("http")) {
+                        mlink = Constants.url.substring(0, Constants.url.length() - 1) + mlink;
+                    }
+
                     // String imagelink = searching.select("div[class=img]").select("img").eq(2*i).attr("src"); // Use if getting cache error
                     String imagelink = searching.select("div[class=img]").select("img").eq(i).attr("src"); // Use normally
                     String episodeno = searching.select("p[class=episode]").eq(i).text();

@@ -139,7 +139,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
                     recent.execSQL("delete from anime where EPISODELINK='" + holder.animeuri.toString() + "'");
                     String z = "'" + holder.title.getText().toString().replaceAll("'","''")  + "','" + holder.episodeno.getText().toString() + "','" + holder.animeuri.toString() + "','" + mImageLink.get(position) + "'"; //sql string
                     recent.execSQL("INSERT INTO anime VALUES(" + z + ");");
-                    intent.putExtra("noofepisodes", holder.episodeno.getText().toString().substring(ep + 1, holder.episodeno.getText().toString().length()));
+                    intent.putExtra("noofepisodes", holder.episodeno.getText().toString().substring(ep + 1));
                     intent.putExtra("animename", holder.title.getText().toString());
                     intent.putExtra("imagelink", mImageLink.get(position));
                     intent.putExtra("size", size);
