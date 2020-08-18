@@ -88,10 +88,10 @@ public class Option2 extends Scraper {
                     Log.i("ScrapeUrl",qualityUrl);
                     String quality = htmlToParse.substring(qualityMatcher.start(),qualityMatcher.end());
 
-                    qualities.add(new Quality(quality,qualityUrl));
+                    qualities.add(new Quality(Quality.Format.HLS, quality,qualityUrl));
                 }
                 if(qualities.size()==0) {
-                    qualities.add(new Quality("Unknown", m3u8Link));
+                    qualities.add(new Quality(Quality.Format.HLS, "Unknown", m3u8Link));
                     Log.i("ScrapeUrl",m3u8Link);
                 }
             }
