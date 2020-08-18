@@ -17,9 +17,8 @@ public class    ViewPagerAdapter extends FragmentPagerAdapter {
     Fragment fragment=null;
     if(position==0)
     {
-        fragment=AnimeFragment.newInstance(Constants.url+"page-recent-release.html?page=1&type=2");
-
-
+        //fragment=AnimeFragment.newInstance(Constants.url+"page-recent-release.html?page=1&type=2");
+        fragment = AnimeFragment.newInstance("https://ajax.apimovie.xyz/ajax/page-recent-release.html?page=1&type=2");
     }
     else if(position==1)
         fragment=AnimeFragment.newInstance(Constants.url);
