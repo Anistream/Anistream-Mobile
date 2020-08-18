@@ -37,6 +37,12 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.mp4.FragmentedMp4Extractor;
+import com.google.android.exoplayer2.extractor.mp4.Mp4Extractor;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
@@ -103,15 +109,15 @@ public class WatchVideo extends AppCompatActivity {
         DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory(userAgent);
 
         dataSourceFactory.getDefaultRequestProperties().set("Accept", "*/*");
-        dataSourceFactory.getDefaultRequestProperties().set("Accept-Encoding", "gzip,deflate,br");
-        dataSourceFactory.getDefaultRequestProperties().set("Accept-Language", "en-IN,en;q=0.9,ur-IN;q=0.8,ur;q=0.7,en-GB;q=0.6,en-US;q=0.5");
+        //dataSourceFactory.getDefaultRequestProperties().set("Accept-Encoding", "gzip,deflate,br");
+        //dataSourceFactory.getDefaultRequestProperties().set("Accept-Language", "en-IN,en;q=0.9,ur-IN;q=0.8,ur;q=0.7,en-GB;q=0.6,en-US;q=0.5");
         dataSourceFactory.getDefaultRequestProperties().set("Connection", "keep-alive");
-        dataSourceFactory.getDefaultRequestProperties().set("Origin", "https://vidstreaming.io");
-        dataSourceFactory.getDefaultRequestProperties().set("Referer", "https://vidstreaming.io");
-        dataSourceFactory.getDefaultRequestProperties().set("Sec-Fetch-Mode", "cors");
-        dataSourceFactory.getDefaultRequestProperties().set("Sec-Fetch-Site", "cross-site");
+        //dataSourceFactory.getDefaultRequestProperties().set("Origin", "https://vidstreaming.io");
+        //dataSourceFactory.getDefaultRequestProperties().set("Referer", "https://vidstreaming.io");
+        //dataSourceFactory.getDefaultRequestProperties().set("Sec-Fetch-Mode", "cors");
+        //dataSourceFactory.getDefaultRequestProperties().set("Sec-Fetch-Site", "cross-site");
         dataSourceFactory.getDefaultRequestProperties().set("User-Agent", userAgent);
-        dataSourceFactory.getDefaultRequestProperties().set("Host", host);
+        //dataSourceFactory.getDefaultRequestProperties().set("Host", host);
         return dataSourceFactory;
     }
 
@@ -327,27 +333,28 @@ public class WatchVideo extends AppCompatActivity {
                 nextVideoLink = gogoAnimePageDocument.select("div[class=anime_video_body_episodes_r]").select("a").attr("abs:href");
                 Option1 option1 = new Option1(gogoAnimePageDocument);
                 Option2 option2 = new Option2(gogoAnimePageDocument);
-                scrapers.add(option1);
                 scrapers.add(option2);
+                scrapers.add(option1);
                 qualities = scrapers.get(currentScraper).getQualityUrls();
                 if (qualities.size() == 0) {
 
                     currentScraper--;
-                    // if (currentScraper == scrapers.size()) Use if currentScraper = 0
-                    if (currentScraper < 0) { // Use if currentScraper = 1
-                        useFallBack();
-                    } else {
-                        new Handler(context.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
+                    new Handler(context.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // if (currentScraper == scrapers.size()) Use if currentScraper = 0
+                            if (currentScraper < 0) { // Use if currentScraper = 1
+                                useFallBack();
+                            } else {
                                 changingScraper();
                             }
-                        });
-                    }
+                        }
+                    });
+                } else {
+                    host = scrapers.get(currentScraper).getHost();
+                    currentQuality = 0;
                 }
 
-                host = scrapers.get(currentScraper).getHost();
-                currentQuality = 0;
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -361,17 +368,29 @@ public class WatchVideo extends AppCompatActivity {
             try {
 
                 DefaultHttpDataSourceFactory dataSourceFactory = getSettedHeadersDataFactory();
-                HlsMediaSource hlsMediaSource =
-                        new HlsMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(qualities.get(currentQuality).getQualityUrl()));
-                player.prepare(hlsMediaSource);
+                MediaSource mediaSource = null;
+                Quality quality = qualities.get(currentQuality);
+
+                Log.i("Playing video", quality.toString());
+
+                switch (quality.getFormat()) {
+                    case Progressive:
+                        mediaSource = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(quality.getQualityUrl()));
+                        break;
+                    case HLS:
+                    default:
+                        mediaSource = new HlsMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(quality.getQualityUrl()));
+                        break;
+                }
+
+                player.prepare(mediaSource);
                 player.setPlayWhenReady(true);
                 if (changedScraper) {
                     changedScraper = false;
                     player.seekTo(time);
                 }
             } catch (Exception e) {
-
-                 Log.i("exoerror","quality size was "+ qualities.size());
+                 Log.i("exoerror",e.getMessage());
             }
             player.addListener(new Player.EventListener() {
 
@@ -436,11 +455,7 @@ public class WatchVideo extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-
         player.setPlayWhenReady(true);
-
-
     }
 
     @Override
