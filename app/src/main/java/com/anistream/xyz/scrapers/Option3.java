@@ -1,8 +1,9 @@
 package com.anistream.xyz.scrapers;
 
-
 import android.util.Log;
+
 import com.anistream.xyz.Quality;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Option2 extends Scraper {
+public class Option3 extends Scraper {
     private static final Pattern urlPattern = Pattern.compile(
             "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
                     + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
@@ -21,7 +22,7 @@ public class Option2 extends Scraper {
     //private  static  final Pattern vidCdnM3u8Pattern = Pattern.compile("((sub|dub)\\\\.[0-9]*\\\\.[0-9]*\\\\.m3u8)|(((sub)|(dub))\\.\\d*\\.\\d*\\.m3u8)");
     //private  static  final Pattern vidCdnQualityPattern = Pattern.compile("[0-9]*p");
 
-    public Option2(Document gogoAnimePageDocument) {
+    public Option3(Document gogoAnimePageDocument) {
         this.gogoAnimePageDocument = gogoAnimePageDocument;
     }
 
@@ -38,12 +39,12 @@ public class Option2 extends Scraper {
         ArrayList<Quality> qualities = new ArrayList<>();
         try {
             String vidStreamUrl = "https:" + gogoAnimePageDocument.getElementsByClass("play-video").get(0).getElementsByTag("iframe").get(0).attr("src");
-            String vidCdnUrl = vidStreamUrl.replace("streaming.php", "loadserver.php");
-
             String m3u8Link = "";
+            String htmlToParse = "";
+            String vidCdnUrl = vidStreamUrl;
             Document vidCdnPageDocument = Jsoup.connect(vidCdnUrl).get();
             Log.i("vidcdn", "vidcdn is " + vidCdnUrl);
-            String htmlToParse = vidCdnPageDocument.outerHtml();
+            htmlToParse = vidCdnPageDocument.outerHtml();
             // Log.i("m3u8html",htmlToParse);
             Matcher matcher = urlPattern.matcher(htmlToParse);
 
