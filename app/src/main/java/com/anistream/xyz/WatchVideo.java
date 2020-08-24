@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.anistream.xyz.database.WatchedEp;
 import com.anistream.xyz.scrapers.Option1;
 import com.anistream.xyz.scrapers.Option2;
+import com.anistream.xyz.scrapers.Option3;
 import com.anistream.xyz.scrapers.Scraper;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -61,6 +62,7 @@ import org.jsoup.nodes.Document;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 import androidx.annotation.DrawableRes;
@@ -81,7 +83,7 @@ public class WatchVideo extends AppCompatActivity {
     String vidStreamUrl;
     int currentQuality;
     boolean changedScraper = false;
-    int currentScraper = 1; // 0 = Vidstreaming, 1 = VidCDN
+    int currentScraper = 2; // 0 = Vidstreaming, 1 = VidCDN
     String link;
     String host;
     ArrayList<Scraper> scrapers = new ArrayList<>();
@@ -104,8 +106,8 @@ public class WatchVideo extends AppCompatActivity {
 
 
         String userAgent = Util.getUserAgent(context, "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.0 Safari/532.5");
-        if (currentScraper == 0)
-            return new DefaultHttpDataSourceFactory(userAgent);
+        //if (currentScraper == 0)
+          //  return new DefaultHttpDataSourceFactory(userAgent);
         DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory(userAgent);
 
         dataSourceFactory.getDefaultRequestProperties().set("Accept", "*/*");
@@ -118,6 +120,13 @@ public class WatchVideo extends AppCompatActivity {
         //dataSourceFactory.getDefaultRequestProperties().set("Sec-Fetch-Site", "cross-site");
         dataSourceFactory.getDefaultRequestProperties().set("User-Agent", userAgent);
         //dataSourceFactory.getDefaultRequestProperties().set("Host", host);
+        return dataSourceFactory;
+    }
+
+    DefaultHttpDataSourceFactory getDataFactoryWithHeaders(Map<String, String> headers) {
+        String userAgent = Util.getUserAgent(context, "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.0 Safari/532.5");
+        DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory(userAgent);
+        dataSourceFactory.getDefaultRequestProperties().set(headers);
         return dataSourceFactory;
     }
 
@@ -153,7 +162,7 @@ public class WatchVideo extends AppCompatActivity {
                 }
                 executeQuery(animeName, episodeNumber, nextVideoLink, imageLink);
                 // currentScraper = 0; Uncomment if main scraper is Vidstreaming
-                currentScraper = 1;
+                currentScraper = 2;
 
                 new ScrapeVideoLink(nextVideoLink, context).execute();
             }
@@ -168,7 +177,7 @@ public class WatchVideo extends AppCompatActivity {
                 episodeNumber -= 1;
                 executeQuery(animeName, episodeNumber, previousVideoLink, imageLink);
                 // currentScraper = 0; Uncomment if main scraper is Vidstreaming
-                currentScraper = 1;
+                currentScraper = 2;
                 new ScrapeVideoLink(previousVideoLink, context).execute();
             }
         }
@@ -187,9 +196,11 @@ public class WatchVideo extends AppCompatActivity {
                             if (currentQuality != which) {
                                 long t = player.getCurrentPosition();
                                 currentQuality = which;
-                                DataSource.Factory dataSourceFactory = getSettedHeadersDataFactory();
+                                Quality quality = qualities.get(currentQuality);
+
+                                DataSource.Factory dataSourceFactory = quality.getHeaders() == null ? getSettedHeadersDataFactory() : getDataFactoryWithHeaders(quality.getHeaders());
                                 HlsMediaSource hlsMediaSource =
-                                        new HlsMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(qualities.get(currentQuality).getQualityUrl()));
+                                        new HlsMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(quality.getQualityUrl()));
                                 player.prepare(hlsMediaSource);
                                 player.setPlayWhenReady(true);
                                 player.seekTo(t);
@@ -333,8 +344,10 @@ public class WatchVideo extends AppCompatActivity {
                 nextVideoLink = gogoAnimePageDocument.select("div[class=anime_video_body_episodes_r]").select("a").attr("abs:href");
                 Option1 option1 = new Option1(gogoAnimePageDocument);
                 Option2 option2 = new Option2(gogoAnimePageDocument);
-                scrapers.add(option2);
+                Option3 option3 = new Option3(gogoAnimePageDocument);
+                scrapers.add(option3);
                 scrapers.add(option1);
+                scrapers.add(option2);
                 qualities = scrapers.get(currentScraper).getQualityUrls();
                 if (qualities.size() == 0) {
 
@@ -367,9 +380,11 @@ public class WatchVideo extends AppCompatActivity {
             super.onPostExecute(aVoid);
             try {
 
-                DefaultHttpDataSourceFactory dataSourceFactory = getSettedHeadersDataFactory();
-                MediaSource mediaSource = null;
                 Quality quality = qualities.get(currentQuality);
+
+                DefaultHttpDataSourceFactory dataSourceFactory = quality.getHeaders() == null ? getSettedHeadersDataFactory() : getDataFactoryWithHeaders(quality.getHeaders());
+                MediaSource mediaSource = null;
+
 
                 Log.i("Playing video", quality.toString());
 
@@ -403,7 +418,7 @@ public class WatchVideo extends AppCompatActivity {
                         else {
                             executeQuery(animeName, episodeNumber, nextVideoLink, imageLink);
                             player.stop();
-                            currentScraper = 1;
+                            currentScraper = 2;
                             new ScrapeVideoLink(nextVideoLink, context).execute();
 
                         }

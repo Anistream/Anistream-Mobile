@@ -2,6 +2,8 @@ package com.anistream.xyz;
 
 import androidx.annotation.NonNull;
 
+import java.util.Map;
+
 public class Quality {
     public static enum Format {
         HLS, Progressive
@@ -10,11 +12,17 @@ public class Quality {
     private String quality;
     private String qualityUrl;
     private Format format;
+    private Map<String, String> headers;
 
-    public Quality(Format format, String quality, String qualityUrl) {
+    public Quality(Format format, String quality, String qualityUrl, Map<String, String> headers) {
         this.quality = quality;
         this.format = format;
         this.qualityUrl = qualityUrl;
+        this.headers = headers;
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
     }
 
     public Format getFormat() {

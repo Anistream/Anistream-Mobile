@@ -42,7 +42,7 @@ public class Option1 extends Scraper {
             Matcher matcher = mp4urlPattern.matcher(html);
             if(matcher.find()) {
                 String link = matcher.group(1);
-                qualities.add(new Quality(Quality.Format.Progressive, "Default", link));
+                qualities.add(new Quality(Quality.Format.Progressive, "No Other Qualities Available (MP4)", link, null));
                 return qualities;
             } else {
                 return new ArrayList<>(0);
