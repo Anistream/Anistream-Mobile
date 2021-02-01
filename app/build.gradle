@@ -2,11 +2,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
 android {
-    compileSdkVersion 28
+    //...
+    lintOptions {
+        abortOnError false
+    }
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.anistream.xyz"
-        minSdkVersion 23
-        targetSdkVersion 28
+        minSdkVersion 26
+        targetSdkVersion 30
         versionCode 44
         versionName '1.4.3'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -26,39 +30,40 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion = '29.0.0'
+    buildToolsVersion = '30.0.3'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    implementation 'org.jsoup:jsoup:1.11.3'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    testImplementation 'junit:junit:4.13.1'
+    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    testImplementation 'junit:junit:4.13.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.github.BoardiesITSolutions:FileDirectoryPicker:1.0.0.7'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'com.google.android.material:material:1.1.0-alpha05'
-    implementation 'com.google.firebase:firebase-core:17.0.1'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.google.android.material:material:1.3.0-rc01'
+    implementation 'com.google.firebase:firebase-core:18.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.firebase:firebase-analytics:17.1.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-analytics:18.0.2'
+    implementation 'com.google.firebase:firebase-crashlytics:17.3.1'
     implementation 'com.google.android.exoplayer:exoplayer:2.10.8'
-    implementation 'com.google.firebase:firebase-messaging:19.0.1'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'commons-io:commons-io:2.6'
+    implementation 'commons-io:commons-io:2.8.0'
 
     implementation 'com.race604.waveloading:library:1.1.1'
 
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 }
 

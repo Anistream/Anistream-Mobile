@@ -69,8 +69,8 @@ public class Option3 extends Scraper {
                 headers.put("Accept-Encoding", "gzip,deflate,br");
                 headers.put("Accept-Language", "en-US,en;q=0.9");
                 headers.put("Connection", "keep-alive");
-                headers.put("Origin", "https://vidstreaming.io");
-                headers.put("Referer", "https://vidstreaming.io/");
+                headers.put("Origin", "https://gogo-stream.com/");
+                headers.put("Referer", "https://gogo-stream.com/");
                 headers.put("Sec-Fetch-Mode", "cors");
                 headers.put("Sec-Fetch-Site", "cross-site");
                 headers.put("Sec-Fetch-Dest", "empty");
